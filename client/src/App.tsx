@@ -1,5 +1,6 @@
 import Header from './components/Header.tsx';
 import Clients from './components/Clients.tsx';
+import Projects from './components/Projects.tsx';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import AddClientModal from './components/AddClientModal.tsx';
 
@@ -54,8 +55,9 @@ export default function App() {
     <>
       <ApolloProvider client={client}>
         <Header />
-        <div className='App'>
+        <div className='App container'>
           <AddClientModal />
+          <Projects />
           <Clients />
         </div>
       </ApolloProvider>

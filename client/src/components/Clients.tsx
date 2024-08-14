@@ -11,33 +11,31 @@ import { GET_CLIENTS } from '../queries/clientQueries.ts';
  * @returns {JSX.Element} The table of clients or an appropriate message.
  */
 export default function Clients() {
-    // Execute the GET_CLIENTS query to fetch the clients data
-    const { loading, error, data } = useQuery(GET_CLIENTS);
+  // Execute the GET_CLIENTS query to fetch the clients data
+  const { loading, error, data } = useQuery(GET_CLIENTS);
 
-    if (loading) return <Spinner />;
-    if (error) return <p>Soemthing went wrong.</p>;
+  if (loading) return <Spinner />;
+  if (error) return <p>Soemthing went wrong.</p>;
 
-    return (
-        <>
-            {!loading && !error && (
-                <table className='table table-hover mt-3'>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.clients.map((client: IClient) => {
-                            return (
-                                <ClientRow key={client.id} client={client} />
-                            );
-                        })}
-                    </tbody>
-                </table>
-            )}
-        </>
-    );
+  return (
+    <>
+      {!loading && !error && (
+        <table className='table table-stripe mt-3'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.clients.map((client: IClient) => {
+              return <ClientRow key={client.id} client={client} />;
+            })}
+          </tbody>
+        </table>
+      )}
+    </>
+  );
 }

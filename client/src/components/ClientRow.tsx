@@ -4,14 +4,14 @@ import { DELETE_CLIENT } from './mutations/clientMutations.ts';
 import { GET_CLIENTS } from '../queries/clientQueries.ts';
 
 export interface IClient {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
 }
 
 export interface IClients {
-    clients: IClient[];
+  clients: IClient[];
 }
 
 /**
@@ -21,60 +21,57 @@ export interface IClients {
  * @returns {JSX.Element} The table row displaying the client's details with a delete button.
  */
 export default function ClientRow({ client }: { client: IClient }) {
-    /**
-     * Mutation hook to delete a client from the server.
-     * It updates the Apollo cache by removing the deleted client from the clients list.
-     */
-    const [deleteClient] = useMutation(DELETE_CLIENT, {
-        variables: { id: client.id },
-
-        /**
-         * Updates the Apollo cache to remove the deleted client from the clients list.
-         *
-         * @param {ApolloCache<any>} cache - The Apollo cache.
-         * @param {Object} data - The response data from the deleteClient mutation.
-         */
-        update(cache, { data: { deleteClient } }) {
-            const data = cache.readQuery<IClients>({
-                query: GET_CLIENTS,
-            });
-
-            if (data?.clients) {
-                cache.writeQuery({
-                    query: GET_CLIENTS,
-                    data: {
-                        clients: data.clients.filter(
-                            (client: IClient) => client.id !== deleteClient.id
-                        ),
-                    },
-                });
-            }
-        },
-    });
+  /**
+   * Mutation hook to delete a client from the server.
+   * It updates the Apollo cache by removing the deleted client from the clients list.
+   */
+  const [deleteClient] = useMutation(DELETE_CLIENT, {
+    variables: { id: client.id },
 
     /**
-     * Handles the delete button click event.
-     * Prompts the user for confirmation before deleting the client.
+     * Updates the Apollo cache to remove the deleted client from the clients list.
+     *
+     * @param {ApolloCache<any>} cache - The Apollo cache.
+     * @param {Object} data - The response data from the deleteClient mutation.
      */
-    const deleteHandler = () => {
-        if (window.confirm('Are you sure you want to delete this client?')) {
-            deleteClient();
-        }
-    };
+    update(cache, { data: { deleteClient } }) {
+      const data = cache.readQuery<IClients>({
+        query: GET_CLIENTS,
+      });
 
-    return (
-        <tr>
-            <td>{client.name}</td>
-            <td>{client.email}</td>
-            <td>{client.phone}</td>
-            <td>
-                <button
-                    className='btn btn-danger btn-sm'
-                    onClick={deleteHandler}
-                >
-                    <FaTrash />
-                </button>
-            </td>
-        </tr>
-    );
+      if (data?.clients) {
+        cache.writeQuery({
+          query: GET_CLIENTS,
+          data: {
+            clients: data.clients.filter(
+              (client: IClient) => client.id !== deleteClient.id
+            ),
+          },
+        });
+      }
+    },
+  });
+
+  /**
+   * Handles the delete button click event.
+   * Prompts the user for confirmation before deleting the client.
+   */
+  const deleteHandler = () => {
+    if (window.confirm('Are you sure you want to delete this client?')) {
+      deleteClient();
+    }
+  };
+
+  return (
+    <tr>
+      <td>{client.name}</td>
+      <td>{client.email}</td>
+      <td>{client.phone}</td>
+      <td>
+        <button className='btn btn-danger btn-sm' onClick={deleteHandler}>
+          <FaTrash />
+        </button>
+      </td>
+    </tr>
+  );
 }

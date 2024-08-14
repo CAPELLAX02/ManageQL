@@ -1,6 +1,7 @@
 import Header from './components/Header.tsx';
 import Clients from './components/Clients.tsx';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import AddClientModal from './components/AddClientModal.tsx';
 
 /**
  * Configures the Apollo Client's in-memory cache with custom type policies.
@@ -10,22 +11,22 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
  * @type {InMemoryCache}
  */
 const cache = new InMemoryCache({
-    typePolicies: {
-        Query: {
-            fields: {
-                clients: {
-                    merge(existing, incoming) {
-                        return incoming;
-                    },
-                },
-                projects: {
-                    merge(existing, incoming) {
-                        return incoming;
-                    },
-                },
-            },
+  typePolicies: {
+    Query: {
+      fields: {
+        clients: {
+          merge(existing, incoming) {
+            return incoming;
+          },
         },
+        projects: {
+          merge(existing, incoming) {
+            return incoming;
+          },
+        },
+      },
     },
+  },
 });
 
 /**
@@ -38,8 +39,8 @@ const cache = new InMemoryCache({
  * @type {ApolloClient}
  */
 const client = new ApolloClient({
-    uri: 'http://localhost:5000/graphql',
-    cache,
+  uri: 'http://localhost:5000/graphql',
+  cache,
 });
 
 /**
@@ -49,14 +50,15 @@ const client = new ApolloClient({
  * @returns {JSX.Element} The main application component.
  */
 export default function App() {
-    return (
-        <>
-            <ApolloProvider client={client}>
-                <Header />
-                <div className='App'>
-                    <Clients />
-                </div>
-            </ApolloProvider>
-        </>
-    );
+  return (
+    <>
+      <ApolloProvider client={client}>
+        <Header />
+        <div className='App'>
+          <AddClientModal />
+          <Clients />
+        </div>
+      </ApolloProvider>
+    </>
+  );
 }

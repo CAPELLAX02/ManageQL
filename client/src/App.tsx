@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header.tsx';
 import Clients from './components/Clients.tsx';
 import Projects from './components/Projects.tsx';
@@ -54,12 +55,14 @@ export default function App() {
   return (
     <>
       <ApolloProvider client={client}>
-        <Header />
-        <div className='App container'>
-          <AddClientModal />
-          <Projects />
-          <Clients />
-        </div>
+        <Router>
+          <Header />
+          <div className='App container'>
+            <AddClientModal />
+            <Projects />
+            <Clients />
+          </div>
+        </Router>
       </ApolloProvider>
     </>
   );

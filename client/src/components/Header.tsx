@@ -5,7 +5,10 @@ export default function Header() {
         <nav className='navbar bg-light mb-4 p-0'>
             <div className='container'>
                 <a href='/' className='navbar-brand'>
-                    <img src={logo} alt='logo' />
+                    <div className='d-flex'>
+                        <img src={logo} alt='logo' className='mr-2' />
+                        <div>ManageQL</div>
+                    </div>
                 </a>
             </div>
         </nav>

@@ -1,15 +1,50 @@
 import { FormEvent, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useMutation } from '@apollo/client';
+import { ADD_CLIENT } from './mutations/clientMutations.ts';
+import { GET_CLIENTS } from '../queries/clientQueries.ts';
+import { IClient } from './ClientRow.tsx';
 
 export default function AddClientModal() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-  const submitHandler = (e: any) => {
+  const [addClient] = useMutation<
+    { addClient: IClient },
+    { name: string; email: string; phone: string }
+  >(ADD_CLIENT, {
+    variables: { name, email, phone },
+    update(cache, { data }) {
+      if (data?.addClient) {
+        const existingClients = cache.readQuery<{ clients: IClient[] }>({
+          query: GET_CLIENTS,
+        });
+
+        if (existingClients) {
+          cache.writeQuery({
+            query: GET_CLIENTS,
+            data: {
+              clients: [...existingClients.clients, data.addClient],
+            },
+          });
+        }
+      }
+    },
+  });
+
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(name, email, phone);
+
+    if ((name || email || phone) === '') {
+      return alert('Please fill in all fields.');
+    }
+
+    addClient({ variables: { name, email, phone } });
+
+    setName('');
+    setEmail('');
+    setPhone('');
   };
 
   return (

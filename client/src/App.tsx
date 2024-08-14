@@ -3,6 +3,7 @@ import Header from './components/Header.tsx';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import HomePage from './pages/HomePage.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
+import ProjectPage from './pages/ProjectPage.tsx';
 
 /**
  * Configures the Apollo Client's in-memory cache with custom type policies.
@@ -59,6 +60,7 @@ export default function App() {
           <div className='App container'>
             <Routes>
               <Route path='/' element={<HomePage />} />
+              <Route path='/projects/:id' element={<ProjectPage />} />
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
           </div>

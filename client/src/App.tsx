@@ -1,9 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header.tsx';
-import Clients from './components/Clients.tsx';
-import Projects from './components/Projects.tsx';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import AddClientModal from './components/AddClientModal.tsx';
+import HomePage from './pages/HomePage.tsx';
+import NotFoundPage from './pages/NotFoundPage.tsx';
 
 /**
  * Configures the Apollo Client's in-memory cache with custom type policies.
@@ -58,9 +57,10 @@ export default function App() {
         <Router>
           <Header />
           <div className='App container'>
-            <AddClientModal />
-            <Projects />
-            <Clients />
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path='*' element={<NotFoundPage />} />
+            </Routes>
           </div>
         </Router>
       </ApolloProvider>

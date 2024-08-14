@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 
 const mongo_uri: string = process.env.MONGO_URI || '';
 
+/**
+ * @async @function
+ * Asynchronously connects to the MongoDB database using the Mongoose library.
+ * @returns {Promise<void>} A promise that resolves when the connection is successful, or exits the process on failure.
+ */
 const connectDB = async (): Promise<void> => {
     try {
         const conn = await mongoose.connect(mongo_uri);

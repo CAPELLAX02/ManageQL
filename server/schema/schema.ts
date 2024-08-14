@@ -11,7 +11,10 @@ import clientModel from '../modals/clientModel';
 import projectModel from '../modals/projectModel';
 
 /**
- * Client Type
+ * GraphQL Object Type for a Client.
+ * Defines the fields available on a Client object.
+ *
+ * @type {GraphQLObjectType}
  */
 const ClientType = new GraphQLObjectType({
     name: 'Client',
@@ -24,7 +27,10 @@ const ClientType = new GraphQLObjectType({
 });
 
 /**
- * Project Type
+ * GraphQL Object Type for a Project.
+ * Defines the fields available on a Project object and includes a reference to the Client object.
+ *
+ * @type {GraphQLObjectType}
  */
 const ProjectType = new GraphQLObjectType({
     name: 'Project',
@@ -43,7 +49,10 @@ const ProjectType = new GraphQLObjectType({
 });
 
 /**
- * Root Query
+ * Root Query for the GraphQL schema.
+ * Defines the entry points for reading data (queries) from the database.
+ *
+ * @type {GraphQLObjectType}
  */
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -78,13 +87,16 @@ const RootQuery = new GraphQLObjectType({
 });
 
 /**
- * Mutations
+ * GraphQL Mutations for the schema.
+ * Defines the entry points for modifying data (mutations) in the database.
+ *
+ * @type {GraphQLObjectType}
  */
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
         /**
-         * Add new client mutation
+         * Mutation to add a new client to the database.
          */
         addClient: {
             type: ClientType,
@@ -102,8 +114,9 @@ const mutation = new GraphQLObjectType({
                 return client.save();
             },
         },
+
         /**
-         * Delete client mutation
+         * Mutation to delete a client from the database.
          */
         deleteClient: {
             type: ClientType,
@@ -114,8 +127,9 @@ const mutation = new GraphQLObjectType({
                 return clientModel.findByIdAndDelete(args.id);
             },
         },
+
         /**
-         * Add new project mutation
+         * Mutation to add a new project to the database.
          */
         addProject: {
             type: ProjectType,
@@ -145,8 +159,9 @@ const mutation = new GraphQLObjectType({
                 return project.save();
             },
         },
+
         /**
-         * Delete project mutation
+         * Mutation to delete a project from the database.
          */
         deleteProject: {
             type: ProjectType,
@@ -158,7 +173,7 @@ const mutation = new GraphQLObjectType({
             },
         },
         /**
-         * Update project mutation
+         * Mutation to update an existing project in the database.
          */
         updateProject: {
             type: ProjectType,
@@ -197,6 +212,6 @@ const mutation = new GraphQLObjectType({
 });
 
 /**
- * Export the root GraphQL query
+ * Exports the GraphQL schema, including root query and mutations.
  */
 export default new GraphQLSchema({ query: RootQuery, mutation });

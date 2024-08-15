@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner.tsx';
 import ClientInfo from '../components/ClientInfo.tsx';
+import DeleteProjectButton from '../components/DeleteProjectButton.tsx';
 import { useQuery } from '@apollo/client';
 import { GET_PROJECT } from '../queries/projectQueries.ts';
 
@@ -17,8 +18,11 @@ export default function ProjectPage() {
   return (
     <>
       {!loading && !error && (
-        <div className='mx-auto w-75 card p-5'>
-          <Link to='/' className='btn btn-light btn-sm w-25 d-inline ms-auto'>
+        <div className='mx-auto w-75 card p-5 border-0 shadow-lg'>
+          <Link
+            to='/'
+            className='btn btn-light btn-sm w-25 d-inline ms-auto shadow-lg'
+          >
             Go Back
           </Link>
 
@@ -28,7 +32,10 @@ export default function ProjectPage() {
 
           <h5 className='mt-3'>Project Status</h5>
           <p className='lead'>{data.project.status}</p>
+
           <ClientInfo client={data.project.client} />
+
+          <DeleteProjectButton projectId={data.project.id} />
         </div>
       )}
     </>

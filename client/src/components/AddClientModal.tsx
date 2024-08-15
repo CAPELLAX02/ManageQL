@@ -109,7 +109,7 @@ export default function AddClientModal() {
                   <input
                     className='form-control'
                     placeholder='Phone'
-                    type='number'
+                    type='text'
                     id='name'
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}

@@ -123,7 +123,13 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
+        const projects = await projectModel.find({ clientId: args.id });
+
+        for (const project of projects) {
+          await project.deleteOne();
+        }
+
         return clientModel.findByIdAndDelete(args.id);
       },
     },

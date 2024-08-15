@@ -2,6 +2,7 @@ import { FaTrash } from 'react-icons/fa';
 import { useMutation } from '@apollo/client';
 import { DELETE_CLIENT } from './mutations/clientMutations.ts';
 import { GET_CLIENTS } from '../queries/clientQueries.ts';
+import { GET_PROJECTS } from '../queries/projectQueries.ts';
 
 export interface IClient {
   id: string;
@@ -27,29 +28,30 @@ export default function ClientRow({ client }: { client: IClient }) {
    */
   const [deleteClient] = useMutation(DELETE_CLIENT, {
     variables: { id: client.id },
+    /**
+     * updating cache alternative: refetching the data (way more eaiser but the effieciency is debatable)
+     */
+    refetchQueries: [{ query: GET_CLIENTS }, { query: GET_PROJECTS }],
 
     /**
      * Updates the Apollo cache to remove the deleted client from the clients list.
-     *
-     * @param {ApolloCache<any>} cache - The Apollo cache.
-     * @param {Object} data - The response data from the deleteClient mutation.
      */
-    update(cache, { data: { deleteClient } }) {
-      const data = cache.readQuery<IClients>({
-        query: GET_CLIENTS,
-      });
+    // update(cache, { data: { deleteClient } }) {
+    //   const data = cache.readQuery<IClients>({
+    //     query: GET_CLIENTS,
+    //   });
 
-      if (data?.clients) {
-        cache.writeQuery({
-          query: GET_CLIENTS,
-          data: {
-            clients: data.clients.filter(
-              (client: IClient) => client.id !== deleteClient.id
-            ),
-          },
-        });
-      }
-    },
+    //   if (data?.clients) {
+    //     cache.writeQuery({
+    //       query: GET_CLIENTS,
+    //       data: {
+    //         clients: data.clients.filter(
+    //           (client: IClient) => client.id !== deleteClient.id
+    //         ),
+    //       },
+    //     });
+    //   }
+    // },
   });
 
   /**

@@ -68,7 +68,10 @@ export default function ClientRow({ client }: { client: IClient }) {
       <td>{client.email}</td>
       <td>{client.phone}</td>
       <td>
-        <button className='btn btn-danger btn-sm' onClick={deleteHandler}>
+        <button
+          className='btn btn-danger btn-sm shadow'
+          onClick={deleteHandler}
+        >
           <FaTrash />
         </button>
       </td>

@@ -51,7 +51,7 @@ export default function AddClientModal() {
     <>
       <button
         type='button'
-        className='btn btn-secondary'
+        className='btn btn-secondary shadow'
         data-bs-toggle='modal'
         data-bs-target='#addClientModal'
       >

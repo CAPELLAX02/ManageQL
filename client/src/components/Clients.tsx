@@ -15,12 +15,12 @@ export default function Clients() {
   const { loading, error, data } = useQuery(GET_CLIENTS);
 
   if (loading) return <Spinner />;
-  if (error) return <p>Soemthing went wrong.</p>;
+  if (error) return <p>Something went wrong.</p>;
 
   return (
     <>
       {!loading && !error && (
-        <table className='table table-stripe mt-3'>
+        <table className='table table-stripe mt-4 shadow'>
           <thead>
             <tr>
               <th>Name</th>

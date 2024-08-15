@@ -1,48 +1,56 @@
 body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 .navbar-brand {
-    color: #df3ca6;
+  color: #df3ca6;
 }
 
 .navbar-brand img {
-    width: 30px;
-    margin-right: 10px;
+  width: 30px;
+  margin-right: 10px;
 }
 
 .btn {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .btn-primary,
 .bg-primary {
-    background-color: #df3ca6 !important;
-    border: none;
+  background-color: #df3ca6 !important;
+  border: none;
 }
 
 .btn-primary:hover {
-    background-color: #df3ca6;
-    opacity: 0.9;
+  background-color: #df3ca6;
+  opacity: 0.9;
 }
 
 .btn-secondary {
-    background-color: #7430f9;
+  background-color: #7430f9;
 }
 
 .btn-secondary:hover {
-    background-color: #7430f9;
-    opacity: 0.9;
+  background-color: #7430f9;
+  opacity: 0.9;
 }
 
 .icon {
-    margin-right: 5px;
+  margin-right: 5px;
+}
+
+.table td {
+  padding: 6px 24px;
+}
+
+.table th {
+  padding: 8px 24px;
 }

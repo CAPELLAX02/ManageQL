@@ -11,7 +11,6 @@ export default function HomePage() {
         <AddProjectModal />
       </div>
       <Projects />
-      <hr />
       <Clients />
     </>
   );

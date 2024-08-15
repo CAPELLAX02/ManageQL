@@ -63,7 +63,7 @@ export default function AddProjectModal() {
         <>
           <button
             type='button'
-            className='btn btn-primary'
+            className='btn btn-primary shadow'
             data-bs-toggle='modal'
             data-bs-target='#addProjectModal'
           >

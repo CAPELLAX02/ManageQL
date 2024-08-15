@@ -4,6 +4,7 @@ import ClientInfo from '../components/ClientInfo.tsx';
 import DeleteProjectButton from '../components/DeleteProjectButton.tsx';
 import { useQuery } from '@apollo/client';
 import { GET_PROJECT } from '../queries/projectQueries.ts';
+import EditProjectForm from '../components/EditProjectForm.tsx';
 
 export default function ProjectPage() {
   const { id } = useParams();
@@ -18,7 +19,7 @@ export default function ProjectPage() {
   return (
     <>
       {!loading && !error && (
-        <div className='mx-auto w-75 card p-5 border-0 shadow-lg'>
+        <div className='mx-auto mb-5 w-75 card p-5 border-0 shadow-lg'>
           <Link
             to='/'
             className='btn btn-light btn-sm w-25 d-inline ms-auto shadow'
@@ -34,6 +35,8 @@ export default function ProjectPage() {
           <p className='lead'>{data.project.status}</p>
 
           <ClientInfo client={data.project.client} />
+
+          <EditProjectForm project={data.project} />
 
           <DeleteProjectButton projectId={data.project.id} />
         </div>
